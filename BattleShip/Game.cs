@@ -14,14 +14,11 @@ namespace BattleShip
             Player player = new Player(new Grid());
             Player bot = new Player(new Grid());
             bool playersTurn = true;
-            bot.grid.printGrid();
             // game will continue until one of the player has 0 ships left
             while (player.grid.ships.Count > 0 || bot.grid.ships.Count > 0)
             {
                 if (playersTurn)
                 {
-                    while(playersTurn)
-                    {
                        // Console.WriteLine("It is your turn");
                         //Console.WriteLine("Top Left is (x: 0, y: 0)");
                         //Console.WriteLine("Bottom Right is (x: 3, y: 3)");
@@ -45,43 +42,85 @@ namespace BattleShip
                                     {
                                         // TODO: check if the move has been made before
 
-                                        Player.Shot(bot.grid,x, y);
+                                        string result = Player.Shot(bot.grid,x, y);
+                                    if (result == "hit")
+                                    {
+
+                                        Console.WriteLine($"You shot at X: {x}, Y: {y} and...");
+                                        Thread.Sleep(2000);
+                                        Console.WriteLine("You got a hit!");
+                                        Thread.Sleep(2000);
+                                        Console.WriteLine("Good work.");
+                                    }
+                                    else 
+                                    {
+
+                                        Console.WriteLine($"You shot at X: {x}, Y: {y} and...");
+                                        Thread.Sleep(2000);
+                                        Console.WriteLine("You missed.");
+                                        Thread.Sleep(2000);
+                                        Console.WriteLine("Better luck next time.");
+                                        Thread.Sleep(2000);
+
+
+                                    }
+
+                                    Console.WriteLine($"Bot has {bot.grid.ships.Count} ships left.");
+                                    Thread.Sleep(2000);
+
+                                    Console.WriteLine("Press any key to start bots turn");
+                                        Console.ReadKey();
                                         playersTurn = false;
-                                        break;
 
                                     } else
                                     {
                                         Console.WriteLine("You must enter a Number between 0 and 3 (inclusive)");
-                                        break;
                                     }
                                 } else
                                 {
                                     Console.WriteLine("You must enter a Number between 0 and 3 (inclusive)");
-                                    break;
                                 }
 
                             } else
                             {
                                 Console.WriteLine("You must enter a number between 0 and 3 (inclusive)");
-                                break;
                             }
                         } else // user entered a letter, prompt them for a number between 0 and 3
                         {
                             Console.WriteLine("You must enter a Number between 0 and 3(inclusive)");
-                            break; 
                         }
-                    }
                 } else // bots turn
                 {
-                    //Console.WriteLine("Bots turn");
-                    //Console.ReadLine();
-                    break;
+                    Console.Clear();
+                    Console.WriteLine("Bots turn");
+                    // generate a random x and y 
+                    Random random = new Random();
+                    int x = random.Next(3);
+                    int y = random.Next(3);
+                    string result = Player.Shot(player.grid, x, y);
+                    Thread.Sleep(2000);
+                    Console.WriteLine($"The bot shot at: X: {x} Y: {y}");
+                    Thread.Sleep(2000);
+                    if (result == "hit") Console.WriteLine("The bot got a hit on one of your ships");
+                    else Console.WriteLine("The bot missed your ships");
+                    Thread.Sleep(2000);
+
+                    Console.WriteLine($"You have {player.grid.ships.Count} ships left.");
+                    Thread.Sleep(2000);
+                    // Prompt the user to enter a key to continue to their turn
+                    Console.WriteLine("Enter any key to continue");
+                    Console.ReadKey();
+                    Console.Clear();
+                    // Players turn again
+                    playersTurn = true;
+                    
                 }
                 //player.grid.printGrid();
             }
-            {
 
-            }
+            // one of the players has lost
+            Console.WriteLine("Game over");
+            Console.ReadLine();
         }
 
 

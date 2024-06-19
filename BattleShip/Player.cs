@@ -14,17 +14,20 @@ namespace BattleShip
             this.grid = grid;
         }
         // takes in the other players grid
-        public static void Shot(Grid grid, int x, int y)
+        public static string Shot(Grid opponentsGrid, int x, int y)
         {
             // check if a ship exists at coords for the shot
-            int index = grid.ships.FindIndex(ship => ship.x == x && ship.y == y);
+            int index = opponentsGrid.ships.FindIndex(ship => ship.x == x && ship.y == y);
             if (index != -1)
             {
-                Console.WriteLine("HIT~~~~~~~~~~~");
-                Console.WriteLine(grid.ships[index]);
-                grid.ships.RemoveAt(index);
+                // register the hit by removing the opponents ship at the given index
+                opponentsGrid.ships.RemoveAt(index);
+                return "hit";
+            } else
+            {
+                return "miss";
             }
-            grid.printGrid();
+            opponentsGrid.printGrid();
             Console.ReadLine();
 
 
