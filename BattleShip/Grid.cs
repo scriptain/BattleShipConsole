@@ -23,6 +23,7 @@ namespace BattleShip
         private List<Ship> createShips(List<Ship> ships)
         {
             List<Ship> populatedShips = new List<Ship>();
+
             for(int i = 0; i < 5; i++)
             {
                 bool placed = false;

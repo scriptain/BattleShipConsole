@@ -9,6 +9,7 @@ namespace BattleShip
     internal class Player
     {
         public Grid grid;
+        public List<(int x, int y, string result)> moves = new List<(int x, int y, string result)>();
 
         public Player(Grid grid) {
             this.grid = grid;
@@ -27,7 +28,6 @@ namespace BattleShip
             {
                 return "miss";
             }
-            opponentsGrid.printGrid();
             Console.ReadLine();
 
 
